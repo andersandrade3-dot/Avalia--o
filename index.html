@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avaliação: Informática Aplicada ao Ensino da Física | IFCE</title>
+  <meta name="description" content="Ambiente de avaliação prática e reflexiva para a disciplina de Informática Aplicada ao Ensino da Física (Licenciatura em Física IFCE).">
+  <meta name="author" content="Licenciatura em Física (IFCE)">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   DESIGN SYSTEM: Avaliação Informática no Ensino da Física
+   ============================================================ */
+:root {
+  --primary-900: #0a192f; --primary-800: #0f2b48; --primary-700: #16426d;
+  --primary-600: #1d5893; --primary-500: #2563eb; --primary-400: #3b82f6;
+  --primary-300: #60a5fa; --primary-100: #dbeafe; --primary-50: #eff6ff;
+  --accent-cyan: #06b6d4; --accent-teal: #0d9488; --accent-emerald: #10b981;
+  --accent-amber: #f59e0b; --accent-rose: #f43f5e;
+  --bg-app: #f8fafc; --bg-card: #ffffff; --bg-card-subtle: #f1f5f9; --bg-context: #f0f7ff;
+  --text-main: #0f172a; --text-muted: #475569; --text-light: #94a3b8; --text-inverted: #ffffff;
+  --border-light: #e2e8f0; --border-medium: #cbd5e1; --border-focus: #3b82f6;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 16px; --radius-xl: 24px;
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--text-main); background-color: var(--bg-app); scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { min-height: 100vh; display: flex; flex-direction: column; line-height: 1.6; }
+h1,h2,h3,h4,h5,h6 { color: var(--primary-900); font-weight: 700; line-height: 1.25; }
+code, .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* HEADER */
+.app-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-sm); }
+.header-inner { max-width: 1240px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand-section { display: flex; align-items: center; gap: 0.85rem; }
+.brand-logo-badge { width: 44px; height: 44px; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--primary-700), var(--primary-500)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.35rem; box-shadow: 0 4px 10px rgba(37,99,235,0.25); }
+.brand-text h1 { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em; }
+.brand-text p { font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; }
+.brand-pill { background: var(--primary-50); color: var(--primary-600); font-weight: 600; padding: 0.1rem 0.5rem; border-radius: 999px; font-size: 0.7rem; }
+.header-actions { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+
+/* Autosave Badge */
+.autosave-badge { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.78rem; font-weight: 500; background: var(--bg-card-subtle); border: 1px solid var(--border-light); color: var(--text-muted); transition: all var(--transition-fast); }
+.autosave-badge.saving { background: #fef3c7; border-color: #fde68a; color: #92400e; }
+.autosave-badge.saved { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+.autosave-badge .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-emerald); }
+.autosave-badge.saving .pulse-dot { background: var(--accent-amber); animation: pulse 1s infinite alternate; }
+@keyframes pulse { from { opacity: 0.4; transform: scale(0.85); } to { opacity: 1; transform: scale(1.15); } }
+
+/* Student Chip */
+.student-chip { display: flex; align-items: center; gap: 0.6rem; padding: 0.3rem 0.65rem 0.3rem 0.4rem; border-radius: 999px; background: var(--bg-card-subtle); border: 1px solid var(--border-light); }
+.student-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--primary-600); color: #fff; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; }
+.student-info-mini { line-height: 1.2; }
+.student-name-mini { font-size: 0.82rem; font-weight: 700; color: var(--text-main); max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.student-course-mini { font-size: 0.7rem; color: var(--text-muted); }
+
+/* MAIN */
+.main-content { flex: 1; max-width: 1140px; width: 100%; margin: 0 auto; padding: 1.75rem 1.25rem 3.5rem; }
+
+/* BUTTONS */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-family: inherit; font-size: 0.88rem; font-weight: 600; padding: 0.6rem 1.15rem; border-radius: var(--radius-md); border: 1px solid transparent; cursor: pointer; text-decoration: none; transition: all var(--transition-fast); white-space: nowrap; }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: linear-gradient(135deg, var(--primary-600), var(--primary-500)); color: #fff; box-shadow: 0 3px 8px rgba(37,99,235,0.28); }
+.btn-primary:hover { background: linear-gradient(135deg, var(--primary-700), var(--primary-600)); box-shadow: 0 6px 14px rgba(37,99,235,0.35); transform: translateY(-1px); }
+.btn-secondary { background: #fff; color: var(--primary-700); border-color: var(--border-medium); }
+.btn-secondary:hover { background: var(--bg-card-subtle); border-color: var(--primary-400); }
+.btn-success { background: linear-gradient(135deg, #059669, #10b981); color: #fff; box-shadow: 0 3px 8px rgba(16,185,129,0.25); }
+.btn-success:hover { background: linear-gradient(135deg, #047857, #059669); transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(--text-muted); border-color: var(--border-medium); }
+.btn-outline:hover { color: var(--primary-600); border-color: var(--primary-400); background: var(--primary-50); }
+.btn-ghost { background: transparent; color: var(--text-muted); border: none; }
+.btn-ghost:hover { color: var(--text-main); background: var(--bg-card-subtle); }
+.btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; border-radius: var(--radius-sm); }
+.btn-lg { padding: 0.8rem 1.6rem; font-size: 1rem; border-radius: var(--radius-lg); }
+
+/* AUTH */
+.auth-wrapper { max-width: 520px; margin: 1.5rem auto; animation: fadeIn 0.4s ease-out; }
+.auth-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-xl); padding: 2.25rem 2rem; box-shadow: var(--shadow-xl); }
+.auth-header { text-align: center; margin-bottom: 2rem; }
+.auth-header-icon { width: 60px; height: 60px; margin: 0 auto 1.15rem; border-radius: var(--radius-lg); background: linear-gradient(135deg, var(--primary-800), var(--primary-600)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.75rem; box-shadow: 0 8px 18px rgba(29,78,216,0.25); }
+.auth-header h2 { font-size: 1.45rem; margin-bottom: 0.4rem; }
+.auth-header p { color: var(--text-muted); font-size: 0.88rem; }
+.auth-form { display: flex; flex-direction: column; gap: 1.15rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between; }
+.form-group label .required-star { color: var(--accent-rose); }
+.form-control { width: 100%; padding: 0.72rem 1rem; font-family: inherit; font-size: 0.92rem; border: 1.5px solid var(--border-medium); border-radius: var(--radius-md); background: #fff; color: var(--text-main); transition: all var(--transition-fast); }
+.form-control:focus { outline: none; border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+.auth-security-notice { display: flex; align-items: flex-start; gap: 0.6rem; background: var(--bg-context); border-left: 3px solid var(--primary-500); padding: 0.85rem; border-radius: var(--radius-sm); font-size: 0.8rem; color: var(--primary-900); margin-top: 0.5rem; }
+.auth-security-notice i { font-size: 1.1rem; color: var(--primary-600); margin-top: 0.1rem; }
+
+/* TRACKER & STEPPER */
+.assessment-tracker-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 1.75rem; box-shadow: var(--shadow-sm); }
+.tracker-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem; }
+.tracker-title { font-size: 0.95rem; font-weight: 700; color: var(--primary-900); display: flex; align-items: center; gap: 0.5rem; }
+.tracker-stats { font-size: 0.85rem; font-weight: 600; color: var(--primary-600); }
+.progress-track { width: 100%; height: 8px; background: var(--bg-card-subtle); border-radius: 999px; overflow: hidden; margin-bottom: 1.15rem; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary-500), var(--accent-cyan)); border-radius: 999px; width: 0%; transition: width 0.4s ease-out; }
+.stepper-nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.65rem; }
+.step-btn { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); background: var(--bg-card); cursor: pointer; text-align: left; transition: all var(--transition-fast); font-family: inherit; }
+.step-btn:hover { border-color: var(--primary-400); background: var(--primary-50); }
+.step-btn.active { border-color: var(--primary-600); background: var(--primary-50); box-shadow: 0 0 0 2px rgba(37,99,235,0.2); }
+.step-number-circle { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-card-subtle); color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; transition: all var(--transition-fast); }
+.step-btn.active .step-number-circle { background: var(--primary-600); color: #fff; }
+.step-btn.complete .step-number-circle { background: var(--accent-emerald); color: #fff; }
+.step-text-wrap { display: flex; flex-direction: column; overflow: hidden; }
+.step-label { font-size: 0.72rem; font-weight: 700; color: var(--primary-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.step-status { font-size: 0.68rem; color: var(--text-muted); }
+.step-btn.complete .step-status { color: var(--accent-emerald); font-weight: 600; }
+
+/* ACTIVITY CARD */
+.activity-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); overflow: hidden; margin-bottom: 2rem; animation: fadeIn 0.3s ease-out; }
+.activity-header-banner { background: linear-gradient(135deg, var(--primary-900), var(--primary-800)); color: #fff; padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; }
+.activity-badge-group { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
+.badge-pill { padding: 0.25rem 0.7rem; border-radius: 999px; font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.badge-pill-cyan { background: rgba(6,182,212,0.2); color: #67e8f9; border: 1px solid rgba(6,182,212,0.3); }
+.badge-pill-time { background: rgba(255,255,255,0.12); color: #e2e8f0; }
+.activity-title { color: #fff; font-size: 1.45rem; font-weight: 800; line-height: 1.3; }
+.activity-nav-quick { display: flex; gap: 0.5rem; flex-shrink: 0; }
+.activity-body { padding: 2rem; }
+.case-study-box { background: var(--bg-context); border: 1px solid #bfdbfe; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; margin-bottom: 2.25rem; }
+.case-study-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; color: var(--primary-800); font-weight: 800; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.case-study-header i { font-size: 1.25rem; color: var(--primary-600); }
+.case-study-content { font-size: 0.95rem; line-height: 1.75; color: #1e293b; }
+.case-study-content strong { color: var(--primary-900); }
+
+/* CONTEXT STYLES & NEWS PREVIEW */
+.academic-quote { background: #f8fafc; border-left: 4px solid var(--primary-600); padding: 1rem 1.25rem; margin: 1.25rem 0; border-radius: 0 var(--radius-md) var(--radius-md) 0; font-style: italic; color: #1e293b; position: relative; font-size: 0.96rem; line-height: 1.65; }
+.academic-quote i { color: var(--primary-500); font-size: 1.25rem; margin-right: 0.35rem; }
+.context-section-title { display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; font-weight: 800; color: var(--primary-900); margin: 1.75rem 0 0.75rem 0; padding-bottom: 0.4rem; border-bottom: 2px solid var(--primary-100); }
+.context-section-title i { color: var(--primary-600); }
+.news-preview-container { margin: 1.75rem 0; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.12); border: 1.5px solid #cbd5e1; background: #ffffff; }
+.news-preview-bar { background: #202124; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.browser-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.browser-dot.red { background: #ed6a5e; }
+.browser-dot.yellow { background: #f4bf4f; }
+.browser-dot.green { background: #61c554; }
+.browser-url-text { margin-left: 0.75rem; background: #292a2d; color: #9aa0a6; font-size: 0.78rem; font-family: 'JetBrains Mono', monospace; padding: 0.2rem 0.75rem; border-radius: 20px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.news-preview-img { width: 100%; height: auto; display: block; cursor: zoom-in; transition: opacity 0.2s ease; }
+.news-preview-img:hover { opacity: 0.98; }
+.news-caption { padding: 0.85rem 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; font-size: 0.84rem; color: #475569; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+.news-caption-badge { background: #eff6ff; color: #1d4ed8; font-weight: 700; font-size: 0.75rem; padding: 0.25rem 0.65rem; border-radius: 999px; border: 1px solid #bfdbfe; display: inline-flex; align-items: center; gap: 0.35rem; }
+.source-box-card { background: #f0f7ff; border: 1.5px solid #bfdbfe; border-left: 5px solid #2563eb; border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin: 1.75rem 0; }
+.source-box-title { font-size: 0.95rem; font-weight: 800; color: #1e3a8a; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.45rem; }
+.source-links-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.88rem; }
+.source-links-list li { color: #1e293b; line-height: 1.5; }
+.source-links-list a { color: #1d4ed8; font-weight: 600; text-decoration: underline; display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.25rem; }
+.source-links-list a:hover { color: #1e40af; text-decoration: none; }
+.stat-pill-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+.stat-mini-card { background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.75rem 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.stat-mini-val { font-size: 1.35rem; font-weight: 800; line-height: 1.2; }
+.stat-mini-lbl { font-size: 0.76rem; color: #64748b; margin-top: 0.2rem; font-weight: 600; }
+
+/* EIXO SECTION CARDS (CONTEXT + QUESTIONS UNDERNEATH) */
+.eixo-section-wrapper { margin-bottom: 2.75rem; animation: fadeIn 0.3s ease-out; }
+.eixo-header-card { background: linear-gradient(135deg, var(--primary-900), var(--primary-700)); color: #fff; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 1.15rem 1.5rem; display: flex; align-items: center; gap: 0.75rem; font-size: 1.08rem; font-weight: 800; letter-spacing: 0.02em; border: 1px solid var(--primary-800); }
+.eixo-header-card i { font-size: 1.35rem; color: #67e8f9; }
+.eixo-body-card { background: var(--bg-context, #f0f7ff); border: 1.5px solid #bfdbfe; border-top: none; border-radius: 0 0 var(--radius-lg) var(--radius-lg); padding: 1.5rem 1.75rem; margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.75; color: #1e293b; box-shadow: 0 4px 12px rgba(37,99,235,0.05); }
+.eixo-body-card strong { color: var(--primary-900); }
+.eixo-questions-container { display: flex; flex-direction: column; gap: 1.75rem; }
+
+/* QUESTIONS */
+.questions-container { display: flex; flex-direction: column; gap: 1.75rem; }
+.question-block { background: #fff; border: 1.5px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.5rem; transition: all var(--transition-fast); }
+.question-block:focus-within { border-color: var(--primary-400); box-shadow: 0 4px 16px rgba(37,99,235,0.08); }
+.question-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.85rem; }
+.question-title-wrap { display: flex; align-items: flex-start; gap: 0.75rem; }
+.question-num-tag { background: var(--primary-700); color: #fff; font-weight: 800; font-size: 0.8rem; width: 26px; height: 26px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem; }
+.question-text { font-size: 1.02rem; font-weight: 700; color: var(--primary-900); line-height: 1.45; }
+.question-status-pill { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 0.3rem; }
+.status-empty { background: #f1f5f9; color: var(--text-muted); }
+.status-filled { background: #dcfce7; color: #166534; }
+.hint-toggle-wrap { margin-bottom: 1rem; }
+.hint-box { background: #fffbeb; border: 1px solid #fef3c7; border-left: 3px solid var(--accent-amber); border-radius: var(--radius-sm); padding: 0.65rem 0.9rem; font-size: 0.82rem; color: #92400e; line-height: 1.5; display: flex; align-items: flex-start; gap: 0.5rem; }
+.hint-box i { color: var(--accent-amber); font-size: 1rem; margin-top: 0.1rem; }
+.answer-textarea-wrap { position: relative; }
+.answer-textarea { width: 100%; min-height: 140px; padding: 0.9rem 1rem; font-family: inherit; font-size: 0.92rem; line-height: 1.6; border: 1.5px solid var(--border-medium); border-radius: var(--radius-md); color: var(--text-main); background: #fff; resize: vertical; transition: all var(--transition-fast); }
+.answer-textarea:focus { outline: none; border-color: var(--primary-500); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+.answer-textarea::placeholder { color: var(--text-light); }
+.answer-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted); }
+.char-counter { font-family: 'JetBrains Mono', monospace; }
+.autosave-inline-hint { display: flex; align-items: center; gap: 0.35rem; color: #10b981; }
+.app-navigation-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light); flex-wrap: wrap; }
+
+/* REPORT */
+.relatorio-wrapper { animation: fadeIn 0.4s ease-out; }
+.action-bar-relatorio { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; box-shadow: var(--shadow-sm); }
+.relatorio-paper { background: #fff; border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 2.75rem 2.5rem; box-shadow: var(--shadow-lg); margin-bottom: 2.5rem; }
+.relatorio-header-inst { text-align: center; border-bottom: 2px solid var(--primary-900); padding-bottom: 1.25rem; margin-bottom: 1.75rem; }
+.relatorio-header-inst .inst-logo-text { font-size: 1.25rem; font-weight: 800; text-transform: uppercase; color: var(--primary-900); letter-spacing: 0.02em; }
+.relatorio-header-inst .dept-text { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); }
+.relatorio-header-inst .eval-title { font-size: 1rem; font-weight: 700; margin-top: 0.35rem; color: var(--primary-800); }
+.relatorio-header-inst .eval-tag { display: inline-block; margin-top: 0.5rem; background: var(--primary-50); color: var(--primary-700); font-weight: 700; font-size: 0.85rem; padding: 0.25rem 0.85rem; border-radius: 999px; border: 1px solid var(--primary-100); }
+.student-report-card { background: var(--bg-card-subtle); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.15rem 1.4rem; margin-bottom: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.85rem 1.5rem; font-size: 0.88rem; }
+.report-meta-item strong { color: var(--primary-900); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.15rem; }
+.report-activity-group { margin-bottom: 2.25rem; border-bottom: 1px dashed var(--border-medium); padding-bottom: 1.75rem; }
+.report-activity-group:last-child { border-bottom: none; }
+.report-activity-title { background: #f8fafc; border-left: 4px solid var(--primary-600); padding: 0.6rem 0.9rem; margin-bottom: 1.25rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.report-activity-title h3 { font-size: 1.05rem; color: var(--primary-900); }
+.report-question-box { margin-bottom: 1.25rem; padding: 0.5rem 0; }
+.report-question-text { font-weight: 700; color: var(--primary-900); font-size: 0.95rem; margin-bottom: 0.5rem; }
+.report-answer-box { background: #fff; border-left: 3px solid var(--primary-400); padding: 0.75rem 1rem; font-size: 0.92rem; line-height: 1.65; white-space: pre-wrap; word-break: break-word; color: #1e293b; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.report-answer-empty { font-style: italic; color: var(--text-light); border-left-color: var(--border-medium); }
+.report-signature-row { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border-medium); display: flex; justify-content: space-around; gap: 2rem; text-align: center; }
+.sig-line { flex: 1; max-width: 320px; border-top: 1px solid var(--text-main); padding-top: 0.5rem; font-size: 0.85rem; font-weight: 600; }
+.sig-line small { display: block; font-size: 0.75rem; color: var(--text-muted); }
+
+/* MODALS */
+.modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); backdrop-filter: blur(4px); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1.25rem; opacity: 0; pointer-events: none; transition: opacity var(--transition-smooth); }
+.modal-overlay.active { opacity: 1; pointer-events: auto; }
+.modal-dialog { background: var(--bg-card); border-radius: var(--radius-xl); max-width: 580px; width: 100%; box-shadow: var(--shadow-xl); overflow: hidden; transform: translateY(20px); transition: transform var(--transition-smooth); }
+.modal-overlay.active .modal-dialog { transform: translateY(0); }
+.modal-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; }
+.modal-header h3 { font-size: 1.15rem; color: var(--primary-900); }
+.modal-close { background: transparent; border: none; font-size: 1.35rem; color: var(--text-muted); cursor: pointer; padding: 0.2rem; }
+.modal-close:hover { color: var(--text-main); }
+.modal-body { padding: 1.5rem; }
+.modal-tabs { display: flex; gap: 0.5rem; border-bottom: 1.5px solid var(--border-light); margin-bottom: 1.25rem; }
+.modal-tab-btn { background: transparent; border: none; padding: 0.6rem 1rem; font-family: inherit; font-weight: 600; font-size: 0.88rem; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+.modal-tab-btn.active { color: var(--primary-600); border-bottom-color: var(--primary-600); }
+.modal-tab-panel { display: none; }
+.modal-tab-panel.active { display: block; }
+
+/* TOASTS */
+.toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 110; display: flex; flex-direction: column; gap: 0.6rem; pointer-events: none; }
+.toast { pointer-events: auto; min-width: 280px; max-width: 380px; background: #fff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 0.85rem 1.15rem; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 0.75rem; font-size: 0.88rem; animation: slideInRight 0.3s ease-out; transition: all var(--transition-fast); }
+.toast-success { border-left: 4px solid var(--accent-emerald); }
+.toast-info { border-left: 4px solid var(--primary-500); }
+.toast-warning { border-left: 4px solid var(--accent-amber); }
+@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .stepper-nav { overflow-x: auto; padding-bottom: 0.3rem; }
+  .step-text-wrap { display: none; }
+  .step-btn { justify-content: center; padding: 0.5rem; }
+}
+@media (max-width: 680px) {
+  .header-inner { padding: 0.6rem 0.9rem; flex-wrap: wrap; }
+  .brand-text h1 { font-size: 0.95rem; }
+  .student-name-mini { max-width: 90px; }
+  .activity-header-banner { padding: 1.25rem 1rem; flex-direction: column; align-items: stretch; }
+  .activity-body { padding: 1.15rem 1rem; }
+  .relatorio-paper { padding: 1.5rem 1rem; }
+  .action-bar-relatorio { flex-direction: column; align-items: stretch; }
+  .report-signature-row { flex-direction: column; align-items: center; gap: 2.5rem; }
+}
+
+/* PRINT */
+@media print {
+  @page { size: A4 portrait; margin: 15mm; }
+  *, *::before, *::after { background: transparent !important; color: #111827 !important; box-shadow: none !important; text-shadow: none !important; }
+  body { font-size: 10.5pt !important; line-height: 1.55 !important; padding: 0 !important; margin: 0 !important; }
+  .no-print, .app-header, .stepper-nav, .app-navigation-footer, .modal-overlay, .toast-container, .btn, .auth-wrapper, .assessment-container, .action-bar-relatorio, .autosave-badge { display: none !important; }
+  #relatorio-view { display: block !important; padding: 0 !important; margin: 0 !important; }
+  .relatorio-paper { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 0 !important; box-shadow: none !important; border: none !important; }
+  .report-activity-group { page-break-inside: avoid; break-inside: avoid; }
+  .report-question-box { page-break-inside: avoid; break-inside: avoid; }
+  .report-signature-row { page-break-inside: avoid; break-inside: avoid; }
+  .relatorio-header-inst { border-bottom: 2px solid #0f172a !important; }
+  .report-activity-title { background: #f1f5f9 !important; border-left: 4px solid #1e3a8a !important; }
+  .student-report-card { border: 1px solid #cbd5e1 !important; }
+}
+</style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="app-header no-print">
+    <div class="header-inner">
+      <div class="brand-section">
+        <div class="brand-logo-badge"><i class="bi bi-atom"></i></div>
+        <div class="brand-text">
+          <h1>Informática no Ensino da Física</h1>
+          <p><span>IFCE • Licenciatura em Física</span> <span class="brand-pill">Semestre 2026.2</span></p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div id="autosave-badge" class="autosave-badge saved">
+          <span class="pulse-dot"></span>
+          <span id="autosave-text">Salvo localmente</span>
+        </div>
+        <button id="btn-open-backup" class="btn btn-outline btn-sm"><i class="bi bi-arrow-left-right"></i> <span>Backup</span></button>
+        <div id="header-student-chip" class="student-chip" style="display:none;">
+          <div id="student-avatar" class="student-avatar">AL</div>
+          <div class="student-info-mini">
+            <div id="student-name-header" class="student-name-mini">Aluno</div>
+            <div id="student-course-header" class="student-course-mini">Lic. Física</div>
+          </div>
+          <button id="btn-logout" class="btn btn-ghost btn-sm" title="Encerrar Sessão"><i class="bi bi-box-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- VIEW 1: LOGIN -->
+    <section id="auth-view" class="auth-wrapper">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="auth-header-icon"><i class="bi bi-mortarboard-fill"></i></div>
+          <h2>Identificação do Aluno</h2>
+          <p>Preencha seus dados para iniciar ou continuar a avaliação.</p>
+        </div>
+        <form id="auth-form" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="auth-nome"><span>Nome Completo</span><span class="required-star">*</span></label>
+            <input type="text" id="auth-nome" class="form-control" placeholder="Ex: Maria Clara de Sousa" required>
+          </div>
+          <div class="form-group">
+            <label for="auth-email"><span>E-mail</span><span class="required-star">*</span></label>
+            <input type="email" id="auth-email" class="form-control" placeholder="exemplo@aluno.ifce.edu.br" required>
+          </div>
+          <div class="form-group">
+            <label for="auth-senha"><span>Senha de Acesso Local</span><span class="required-star">*</span></label>
+            <input type="password" id="auth-senha" class="form-control" placeholder="Defina uma senha simples" required>
+          </div>
+          <div class="form-group">
+            <label for="auth-curso"><span>Curso</span><span class="required-star">*</span></label>
+            <input type="text" id="auth-curso" class="form-control" value="Licenciatura em Física" required>
+          </div>
+          <div class="form-group">
+            <label for="auth-matricula"><span>Matrícula (Opcional)</span></label>
+            <input type="text" id="auth-matricula" class="form-control" placeholder="Ex: 202610450012">
+          </div>
+          <div class="auth-security-notice">
+            <i class="bi bi-shield-check"></i>
+            <div><strong>Persistência Segura:</strong> Seus dados são salvos localmente neste navegador. Para continuar no celular, use <strong>Backup</strong>.</div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="margin-top:0.5rem;"><i class="bi bi-pencil-square"></i> Iniciar / Acessar Avaliação</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- VIEW 2: AVALIAÇÃO -->
+    <section id="assessment-view" class="assessment-container" style="display:none;">
+      <div class="assessment-tracker-card no-print">
+        <div class="tracker-header">
+          <div class="tracker-title"><i class="bi bi-check2-circle" style="color:var(--primary-600);font-size:1.2rem;"></i> Progresso da Avaliação</div>
+          <div class="tracker-stats" id="tracker-stats-text">0 de 15 respostas preenchidas (0%)</div>
+        </div>
+        <div class="progress-track"><div id="progress-bar-fill" class="progress-fill"></div></div>
+        <nav class="stepper-nav" id="stepper-nav"></nav>
+      </div>
+      <article class="activity-card">
+        <div class="activity-header-banner">
+          <div>
+            <div class="activity-badge-group">
+              <span class="badge-pill badge-pill-cyan" id="activity-domain-tag"></span>
+              <span class="badge-pill badge-pill-time" id="activity-time-tag"></span>
+            </div>
+            <h2 class="activity-title" id="activity-title-text"></h2>
+          </div>
+          <div class="activity-nav-quick no-print">
+            <button id="btn-quick-prev" class="btn btn-secondary btn-sm"><i class="bi bi-arrow-left"></i></button>
+            <button id="btn-quick-next" class="btn btn-secondary btn-sm"><i class="bi bi-arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="activity-body">
+          <div class="case-study-box">
+            <div class="case-study-header"><i class="bi bi-file-earmark-text-fill"></i> <span>Cenário &amp; Fundamentação</span></div>
+            <div class="case-study-content" id="activity-context-text"></div>
+          </div>
+          <div class="questions-container" id="questions-container"></div>
+        </div>
+      </article>
+      <footer class="app-navigation-footer no-print">
+        <button id="btn-prev-activity" class="btn btn-secondary btn-lg"><i class="bi bi-arrow-left"></i> Atividade Anterior</button>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <button id="btn-force-save" class="btn btn-outline"><i class="bi bi-floppy"></i> Salvar</button>
+          <button id="btn-preview-report" class="btn btn-secondary"><i class="bi bi-file-earmark-ruled"></i> Ver Relatório</button>
+          <button id="btn-next-activity" class="btn btn-primary btn-lg">Próxima Atividade <i class="bi bi-arrow-right"></i></button>
+        </div>
+      </footer>
+    </section>
+
+    <!-- VIEW 3: RELATÓRIO -->
+    <section id="relatorio-view" class="relatorio-wrapper" style="display:none;">
+      <div class="action-bar-relatorio no-print">
+        <button id="btn-voltar-questoes" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Voltar e Editar</button>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <button id="btn-copiar-resumo" class="btn btn-outline"><i class="bi bi-clipboard-check"></i> Copiar Texto</button>
+          <button id="btn-enviar-email" class="btn btn-secondary"><i class="bi bi-envelope-at-fill"></i> Enviar E-mail</button>
+          <button id="btn-baixar-pdf" class="btn btn-primary btn-lg"><i class="bi bi-printer-fill"></i> Baixar PDF / Imprimir</button>
+        </div>
+      </div>
+      <div class="relatorio-paper" id="relatorio-document">
+        <header class="relatorio-header-inst">
+          <div class="inst-logo-text">Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE)</div>
+          <div class="dept-text">Departamento de Ensino • Licenciatura em Física</div>
+          <div class="eval-title">Disciplina: Informática Aplicada ao Ensino da Física</div>
+          <div class="eval-tag">Relatório Oficial de Avaliação • Semestre 2026.2</div>
+        </header>
+        <div class="student-report-card">
+          <div class="report-meta-item"><strong>Aluno(a):</strong><span id="rep-aluno-nome">-</span></div>
+          <div class="report-meta-item"><strong>E-mail:</strong><span id="rep-aluno-email">-</span></div>
+          <div class="report-meta-item"><strong>Curso:</strong><span id="rep-aluno-curso">-</span></div>
+          <div class="report-meta-item"><strong>Matrícula:</strong><span id="rep-aluno-matricula">N/A</span></div>
+          <div class="report-meta-item"><strong>Data / Hora:</strong><span id="rep-data-conclusao">-</span></div>
+          <div class="report-meta-item"><strong>Preenchimento:</strong><span id="rep-status-progresso">-</span></div>
+        </div>
+        <div id="relatorio-atividades-corpo"></div>
+        <div class="report-signature-row">
+          <div class="sig-line"><span id="sig-student-name">Assinatura do Aluno(a)</span><small>Discente (Licenciatura em Física)</small></div>
+          <div class="sig-line"><span>Visto do Professor(a)</span><small>Docente (Informática Aplicada ao Ensino da Física)</small></div>
+        </div>
+        <div style="margin-top:25px;font-size:0.7rem;text-align:center;color:var(--text-light);border-top:1px solid var(--border-light);padding-top:8px;">
+          Documento gerado pelo Sistema Interativo de Avaliação • IFCE • Licenciatura em Física
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL BACKUP -->
+  <div id="backup-modal" class="modal-overlay no-print">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3><i class="bi bi-arrow-left-right" style="color:var(--primary-600);"></i> Sincronização</h3>
+        <button id="btn-close-backup" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:1.15rem;">Exporte seus dados para continuar em outro dispositivo.</p>
+        <div class="modal-tabs">
+          <button class="modal-tab-btn active" data-tab="tab-export">Exportar</button>
+          <button class="modal-tab-btn" data-tab="tab-import">Importar</button>
+        </div>
+        <div id="tab-export" class="modal-tab-panel active">
+          <div style="display:flex;flex-direction:column;gap:0.85rem;">
+            <button id="btn-download-json" class="btn btn-primary"><i class="bi bi-download"></i> Baixar Backup (.JSON)</button>
+            <div style="font-size:0.8rem;text-align:center;color:var(--text-muted);">OU COPIE O CÓDIGO</div>
+            <textarea id="export-code-box" class="form-control font-mono" style="font-size:0.78rem;height:90px;" readonly></textarea>
+            <button id="btn-copy-code" class="btn btn-secondary btn-sm"><i class="bi bi-copy"></i> Copiar Código</button>
+          </div>
+        </div>
+        <div id="tab-import" class="modal-tab-panel">
+          <div style="display:flex;flex-direction:column;gap:0.85rem;">
+            <label style="font-size:0.85rem;font-weight:600;">Arquivo .JSON:</label>
+            <input type="file" id="import-file-input" accept=".json" class="form-control">
+            <div style="font-size:0.8rem;text-align:center;color:var(--text-muted);">OU COLE O CÓDIGO</div>
+            <textarea id="import-code-box" class="form-control font-mono" style="font-size:0.78rem;height:90px;" placeholder="Cole aqui..."></textarea>
+            <button id="btn-apply-import" class="btn btn-success"><i class="bi bi-arrow-clockwise"></i> Restaurar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EMAIL -->
+  <div id="email-modal" class="modal-overlay no-print">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3><i class="bi bi-envelope-check" style="color:var(--primary-600);"></i> Envio ao Professor</h3>
+        <button id="btn-close-email" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="background:var(--bg-context);border:1px solid #bfdbfe;padding:1rem;border-radius:var(--radius-md);margin-bottom:1.25rem;font-size:0.88rem;">
+          <strong><i class="bi bi-info-circle"></i> Procedimento:</strong>
+          <ol style="margin-left:1.25rem;margin-top:0.5rem;display:flex;flex-direction:column;gap:0.35rem;">
+            <li>Baixe o relatório em PDF.</li>
+            <li>Abra seu e-mail.</li>
+            <li>Anexe o PDF e envie ao professor.</li>
+          </ol>
+        </div>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label for="input-email-dest">E-mail do Professor:</label>
+          <input type="email" id="input-email-dest" class="form-control" value="professor.fisica@ifce.edu.br">
+        </div>
+        <div style="display:flex;gap:0.75rem;justify-content:flex-end;">
+          <button id="btn-trigger-mailto" class="btn btn-primary"><i class="bi bi-send-fill"></i> Abrir E-mail</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   DADOS DAS 5 ATIVIDADES
+   ============================================================ */
+const AVALIACAO_METADATA = {
+  emailProfessorPadrao: "professor.fisica@ifce.edu.br"
+};
+
+const ATIVIDADES = [
+  {
+    id: 1, numero: 1,
+    titulo: "Estudo de Caso: Prática Docente, Infraestrutura e Resiliência Tecnológica",
+    categoria: "Mediação Pedagógica & Infraestrutura Escolar",
+    tempoEstimado: "25-35 min",
+    contexto: 'A professora Celinha encontrou na Internet um vídeo público sobre uma abordagem lúdica do ensino da <strong>Física</strong>. Ficou toda animada com a possibilidade de utilizá-lo com seus alunos do Ensino Médio, para tentar desmistificar as barreiras que seus alunos tinham quanto a essa disciplina. Salvou o vídeo no seu computador, testou-o em casa e, a partir do vídeo, criou um roteiro para ajudar seus alunos na observação e compreensão do conteúdo apresentado.<br><br>A professora já sabia que sua sala de aula dispunha de <strong>computador, projetor multimídia e acesso à Internet</strong>, recursos que já haviam sido utilizados em outras ocasiões. Avisou com antecedência ao funcionário responsável pelos recursos tecnológicos sobre a necessidade de deixar tudo preparado. Mesmo assim, levou seu <strong>notebook pessoal</strong> para o caso de algo não dar certo e, se necessário, utilizar outro equipamento disponível na escola.<br><br>Quando foi utilizar as tecnologias, o <strong>computador da sala não conseguiu acessar a Internet</strong> e o projetor apresentou problemas para transmitir a imagem. A professora tentou utilizar outra sala, que estava sem turma, mas o computador disponível também apresentou dificuldades de acesso à Internet. A sorte da professora Celinha é que ela havia elaborado um estudo dirigido a partir de um texto e, assim, enquanto as tentativas iam sendo feitas, a turma tinha outra tarefa para realizar. Por outro lado, o funcionário responsável pelos recursos tecnológicos esteve todo o tempo ao lado da professora, contribuindo para a solução do problema.<br><br>Finalmente, o vídeo foi exibido através do <strong>notebook da professora conectado ao projetor da escola</strong>. A única coisa que não ficou muito boa foi o som, mas os alunos ficaram bem quietos e conseguiram ouvir. A seguir, ocorreu um debate sobre o que havia sido visto e a professora solicitou um <strong>trabalho de pesquisa e produção de conteúdo sobre um fenômeno físico observado no cotidiano</strong>, utilizando fotografias, vídeos ou outros recursos digitais, trazendo o conteúdo estudado para a realidade dos alunos e transformando-os em produtores de conteúdo sobre a Física.',
+    questoes: [
+      { id: "q1_1", numero: "1", enunciado: "Como você classifica o trabalho de preparação da professora?", orientacao: "Avalie o planejamento pedagógico prévio, a antecipação de falhas tecnológicas e a articulação com o suporte escolar.", placeholder: "Analise a postura metodológica e organização da professora Celinha..." },
+      { id: "q1_2", numero: "2", enunciado: "Há alguma sugestão a ser feita quanto aos recursos tecnológicos envolvidos?", orientacao: "Considere testes prévios, equipamentos de áudio, mídias offline e redundância de conexões.", placeholder: "Aponte melhorias técnicas e logísticas..." },
+      { id: "q1_3", numero: "3", enunciado: "Se a escola não tem alguém responsável pela tecnologia, como se deve agir?", orientacao: "Aborde autonomia docente, formação continuada e planos resilientes.", placeholder: "Discuta a postura docente diante da ausência de suporte técnico..." },
+      { id: "q1_4", numero: "4", enunciado: "Opine sobre a tarefa solicitada pela professora ao final da aula.", orientacao: "Reflita sobre a transição do aluno de espectador passivo para produtor autônomo de conteúdo digital.", placeholder: "Comente o valor pedagógico da proposta de produção de mídias..." }
+    ]
+  },
+  {
+    id: 2, numero: 2,
+    tituloCurto: "2. Tecnologias na Prática (Nova Escola)",
+    titulo: "Tecnologias Educacionais na Prática: Intencionalidade, Criação e Realidade Escolar",
+    categoria: "Análise da Reportagem Oficial da Revista Nova Escola & Prática em Física",
+    tempoEstimado: "45-55 min",
+    contexto: `Esta atividade é dedicada integralmente à análise crítica e à aplicação pedagógica da reportagem oficial da <strong>Revista Nova Escola</strong>: <em>"Tecnologias educacionais: o que são e como usá-las na prática?"</em>. Abaixo, o conteúdo está organizado em <strong>3 eixos temáticos derivados diretamente da matéria</strong>, cada um acompanhado imediatamente de suas duas questões formativas correspondentes para o ensino de Física:`,
+    eixos: [
+      {
+        id: "eixo1",
+        numero: 1,
+        icone: "bi-lightbulb",
+        titulo: "EIXO 1: O que São Tecnologias Educacionais & O Risco do 'Uso pelo Uso'",
+        subtitulo: "Conceituação Ampliada, Intencionalidade Pedagógica e Superação do Tecnocentrismo",
+        conteudo: `
+A reportagem da <strong>Revista Nova Escola</strong>, intitulada <em>"Tecnologias educacionais: o que são e como usá-las na prática?"</em>, traz uma reflexão fundamental de especialistas para desmistificar o papel dos recursos tecnológicos na educação contemporânea:<br><br>
+• <strong>Conceito Ampliado de Tecnologia Educacional:</strong> Especialistas esclarecem que tecnologia educacional <strong>não se restringe a equipamentos digitais caros ou de última geração</strong> (como lousas digitais, óculos VR ou tablets). Trata-se de qualquer recurso, digital ou analógico, mobilizado com uma clara <strong>intencionalidade pedagógica</strong> para enriquecer os processos de ensino e de aprendizagem.<br><br>
+• <strong>A Ilusão do Tecnocentrismo (O 'Uso pelo Uso'):</strong> A matéria adverte enfaticamente contra o equívoco de acreditar que apenas preencher a sala de aula com computadores ou dispositivos eletrônicos inova a prática educativa. Quando a tecnologia é utilizada como mero atrativo pirotécnico ou entretenimento desvinculado dos objetivos curriculares, ela gera dispersão em vez de aprendizado. A tecnologia é um <strong>meio facilitador</strong>, jamais a finalidade da aula.
+<div class="source-box-card" style="margin-top:1.25rem;margin-bottom:0;">
+  <div class="source-box-title"><i class="bi bi-bookmark-check-fill"></i> FONTE DA REPORTAGEM:</div>
+  <ul class="source-links-list">
+    <li><strong>Revista Nova Escola (Matéria Oficial 21894):</strong> <em>"Tecnologias educacionais: o que são e como usá-las na prática?"</em>. <a href="https://novaescola.org.br/conteudo/21894/tecnologias-educacionais-o-que-sao-e-como-usa-las-na-pratica" target="_blank" rel="noopener">Acessar Artigo Completo na Nova Escola <i class="bi bi-box-arrow-up-right"></i></a></li>
+  </ul>
+</div>`,
+        questoes: [
+          {
+            id: "q2_1",
+            numero: "1",
+            enunciado: "De acordo com os especialistas entrevistados na reportagem da Nova Escola, o que define autenticamente uma tecnologia como 'educacional'? Por que a simples presença de dispositivos digitais modernos (como computadores, tablets ou lousas interativas) na sala de aula não é suficiente para garantir inovação pedagógica ou uma melhor compreensão dos conceitos físicos?",
+            orientacao: "Destaque a definição de tecnologia educacional apresentada na matéria, ressaltando que o fator decisivo não é o suporte físico ou eletrônico em si, mas a intencionalidade pedagógica com que ele é integrado ao currículo.",
+            placeholder: "Explique a definição de tecnologias educacionais segundo a reportagem e justifique por que o equipamento por si só não inova o ensino de Física..."
+          },
+          {
+            id: "q2_2",
+            numero: "2",
+            enunciado: "A reportagem adverte enfaticamente contra o chamado 'uso da tecnologia pelo simples uso' (ou fetiche da novidade). Explique o perigo do tecnocentrismo no ensino de Física e analise como a ausência de uma intencionalidade pedagógica clara pode transformar recursos tecnológicos avançados em meros instrumentos de distração ou entretenimento sem ganho cognitivo.",
+            orientacao: "Aborde o risco de colocar o aparelho no centro do planejamento em vez dos objetivos de aprendizagem da Física. Diferencie 'usar tecnologia como atrativo estético' de 'usar tecnologia como facilitador de aprendizagem'.",
+            placeholder: "Analise o risco do uso pelo simples uso e detalhe como a falta de objetivos pedagógicos claros prejudica a aprendizagem conceitual em Física..."
+          }
+        ]
+      },
+      {
+        id: "eixo2",
+        numero: 2,
+        icone: "bi-tools",
+        titulo: "EIXO 2: Tecnologia de Ensino (Exposição) vs. Tecnologia de Aprendizagem (Criação)",
+        subtitulo: "Do Consumo Passivo ao Protagonismo e Investigação Científica em Física",
+        conteudo: `
+Um dos pontos centrais abordados pelos educadores na reportagem da Nova Escola é a distinção pedagógica crucial entre duas formas opostas de utilizar os recursos tecnológicos na sala de aula:<br><br>
+• <strong>Tecnologia de Ensino (Foco Expositivo):</strong> Ocorre quando o recurso digital é utilizado exclusivamente pelo professor para projetar apresentações, exibir vídeos ilustrativos ou demonstrar fórmulas prontas. Nessa abordagem transmissiva, o estudante permanece como mero receptor ou espectador passivo da informação na tela.<br><br>
+• <strong>Tecnologia para Aprender e Criar (Foco no Protagonismo Discente):</strong> Ocorre quando as ferramentas digitais são disponibilizadas para que os próprios <strong>estudantes manipulem parâmetros, investiguem problemas, criem hipóteses e construam conhecimento científico</strong> de forma autônoma e colaborativa (como na coleta de dados experimentais, modelagem de simulações interativas ou produção de mídias científicas autorais).
+<div class="source-box-card" style="margin-top:1.25rem;margin-bottom:0;">
+  <div class="source-box-title"><i class="bi bi-bookmark-check-fill"></i> FONTE DA REPORTAGEM:</div>
+  <ul class="source-links-list">
+    <li><strong>Revista Nova Escola (Matéria Oficial 21894):</strong> <em>"Tecnologias educacionais: o que são e como usá-las na prática?"</em>. <a href="https://novaescola.org.br/conteudo/21894/tecnologias-educacionais-o-que-sao-e-como-usa-las-na-pratica" target="_blank" rel="noopener">Acessar Artigo Completo na Nova Escola <i class="bi bi-box-arrow-up-right"></i></a></li>
+  </ul>
+</div>`,
+        questoes: [
+          {
+            id: "q2_3",
+            numero: "3",
+            enunciado: "Uma das distinções centrais apontadas na matéria da Nova Escola é o contraste entre 'tecnologia para ensinar' (foco na exposição docente) e 'tecnologia para aprender e criar' (foco no protagonismo discente). Compare detalhadamente essas duas abordagens e explique por que promover a autoria e a investigação ativa pelos estudantes resulta em uma formação científica mais sólida em Física.",
+            orientacao: "Confronte a postura do aluno como receptor passivo de demonstrações na tela com a postura do aluno como agente que formula hipóteses, analisa dados e constrói representações do fenômeno físico.",
+            placeholder: "Compare as tecnologias de ensino com as tecnologias de aprendizagem/criação, argumentando sobre as vantagens cognitivas do protagonismo estudantil..."
+          },
+          {
+            id: "q2_4",
+            numero: "4",
+            enunciado: "Com base nas recomendações práticas da reportagem para superar o modelo meramente expositivo, elabore uma proposta de atividade didática para um conteúdo específico de Física (ex: Leis do Movimento, Calorimetria, Circuitos Elétricos ou Óptica Geométrica) na qual os alunos utilizem tecnologias digitais como ferramentas de criação, modelagem ou investigação autônoma.",
+            orientacao: "Indique o conteúdo de Física, o recurso tecnológico pretendido (ex: simulações interativas PhET, gravação e análise de movimento com Tracker, sensores do celular com Phyphox ou planilhas) e como os alunos atuarão na prática.",
+            placeholder: "Descreva o conteúdo de Física, a ferramenta tecnológica selecionada e as etapas em que os alunos investigam, manipulam parâmetros e produzem conclusões..."
+          }
+        ]
+      },
+      {
+        id: "eixo3",
+        numero: 3,
+        icone: "bi-newspaper",
+        titulo: "EIXO 3: Mediação Pedagógica, Desafios da Escola Real e Recursos Acessíveis",
+        subtitulo: "O Papel Humano Insubstituível e a Construção de Práticas Inclusivas e Resilientes",
+        conteudo: `
+A reportagem da Nova Escola reforça que nenhuma inovação tecnológica substitui o fator humano decisivo: a <strong>mediação do professor</strong>.<br><br>
+• <strong>A Mediação Docente Insubstituível:</strong> A máquina não ensina sozinha. É o planejamento prévio, a formulação de boas perguntas orientadoras e o acompanhamento pedagógico do professor que transformam uma ferramenta digital em instrumento efetivo de aprendizagem significativa.<br><br>
+• <strong>Realidade e Desafios Estruturais nas Escolas:</strong> A matéria discute as barreiras concretas da educação brasileira (como conectividade instável, laboratórios sucateados e escassez de computadores), ressaltando a importância de estratégias criativas, inclusivas e resilientes (uso de aplicativos offline, sensores presentes nos smartphones dos próprios estudantes e práticas em grupos colaborativos).<br><br>
+<div class="news-preview-container">
+  <div class="news-preview-bar">
+    <span class="browser-dot red"></span>
+    <span class="browser-dot yellow"></span>
+    <span class="browser-dot green"></span>
+    <span class="browser-url-text"><i class="bi bi-lock-fill"></i> https://novaescola.org.br/conteudo/21894/tecnologias-educacionais-o-que-sao-e-como-usa-las-na-pratica</span>
+  </div>
+  <img src="img/noticia-nova-escola-2026.png" alt="Reprodução da Matéria da Revista Nova Escola: Tecnologias educacionais: o que são e como usá-las na prática?" class="news-preview-img" onclick="window.open(this.src,'_blank')" title="Clique na imagem para visualizar em alta resolução">
+  <div class="news-caption">
+    <div><strong>Figura 1:</strong> Reportagem da Revista Nova Escola (conteúdo 21894): diretrizes práticas e intencionalidade pedagógica no uso de tecnologias educacionais.</div>
+    <div class="news-caption-badge"><i class="bi bi-check-circle-fill"></i> Fonte: Nova Escola (Reportagem Oficial)</div>
+  </div>
+</div>
+<div class="source-box-card" style="margin-top:1.25rem;margin-bottom:0;">
+  <div class="source-box-title"><i class="bi bi-bookmark-check-fill"></i> FONTES E LINKS OFICIAIS DESTA REPORTAGEM:</div>
+  <ul class="source-links-list">
+    <li><strong>Revista Nova Escola (Matéria Oficial):</strong> <em>"Tecnologias educacionais: o que são e como usá-las na prática?"</em>. <a href="https://novaescola.org.br/conteudo/21894/tecnologias-educacionais-o-que-sao-e-como-usa-las-na-pratica" target="_blank" rel="noopener">Acessar Matéria na Revista Nova Escola <i class="bi bi-box-arrow-up-right"></i></a></li>
+    <li><strong>Revista Nova Escola (Acervo Histórico):</strong> <em>"Tecnologia na escola: tem mais, mas ainda é pouco"</em>. <a href="https://novaescola.org.br/conteudo/1758/tecnologia-na-escola-tem-mais-mas-ainda-e-pouco" target="_blank" rel="noopener">Acessar no Acervo Nova Escola <i class="bi bi-box-arrow-up-right"></i></a></li>
+    <li><strong>Cetic.br / NIC.br:</strong> <em>Pesquisa TIC Educação: Conectividade e Uso de Tecnologias nas Escolas Brasileiras</em>. <a href="https://cetic.br/pt/pesquisa/educacao/" target="_blank" rel="noopener">Acessar Portal Cetic.br <i class="bi bi-box-arrow-up-right"></i></a></li>
+  </ul>
+</div>`,
+        questoes: [
+          {
+            id: "q2_5",
+            numero: "5",
+            enunciado: "Conforme enfatizado na matéria da Nova Escola, nenhuma tecnologia é autossuficiente ou substitui a intervenção humana qualificada. Qual é o papel crucial da mediação pedagógica do professor de Física antes, durante e após a utilização de recursos tecnológicos com a turma? Por que a ferramenta tecnológica deve ser compreendida sempre como meio e nunca como o fim da ação educativa?",
+            orientacao: "Discuta a curadoria prévia de ferramentas, a formulação de problemas desafiadores durante a aula e a sistematização conceitual coletiva após a atividade prática.",
+            placeholder: "Detalhe as atribuições da mediação pedagógica docente e justifique por que a tecnologia é ferramenta intermediária para o desenvolvimento do pensamento físico..."
+          },
+          {
+            id: "q2_6",
+            numero: "6",
+            enunciado: "Considerando os obstáculos materiais e a infraestrutura desigual nas escolas públicas brasileiras retratados na matéria, que estratégias didáticas resilientes e acessíveis você, como futuro(a) professor(a) de Física, pode adotar para garantir práticas ricas com tecnologia (ex: uso de recursos offline, aproveitamento pedagógico dos smartphones dos próprios estudantes ou experimentos colaborativos em grupo)?",
+            orientacao: "Proponha soluções realistas e resilientes para escolas com limitações materiais, articulando criatividade didática, recursos gratuitos e democratização do acesso aos recursos de aprendizagem.",
+            placeholder: "Apresente estratégias práticas e alternativas viáveis para aplicar tecnologias no ensino de Física mesmo em escolas com infraestrutura deficitária..."
+          }
+        ]
+      }
+    ],
+    questoes: [
+      {
+        id: "q2_1",
+        numero: "1",
+        enunciado: "De acordo com os especialistas entrevistados na reportagem da Nova Escola, o que define autenticamente uma tecnologia como 'educacional'? Por que a simples presença de dispositivos digitais modernos (como computadores, tablets ou lousas interativas) na sala de aula não é suficiente para garantir inovação pedagógica ou uma melhor compreensão dos conceitos físicos?",
+        orientacao: "Destaque a definição de tecnologia educacional apresentada na matéria, ressaltando que o fator decisivo não é o suporte físico ou eletrônico em si, mas a intencionalidade pedagógica com que ele é integrado ao currículo.",
+        placeholder: "Explique a definição de tecnologias educacionais segundo a reportagem e justifique por que o equipamento por si só não inova o ensino de Física..."
+      },
+      {
+        id: "q2_2",
+        numero: "2",
+        enunciado: "A reportagem adverte enfaticamente contra o chamado 'uso da tecnologia pelo simples uso' (ou fetiche da novidade). Explique o perigo do tecnocentrismo no ensino de Física e analise como a ausência de uma intencionalidade pedagógica clara pode transformar recursos tecnológicos avançados em meros instrumentos de distração ou entretenimento sem ganho cognitivo.",
+        orientacao: "Aborde o risco de colocar o aparelho no centro do planejamento em vez dos objetivos de aprendizagem da Física. Diferencie 'usar tecnologia como atrativo estético' de 'usar tecnologia como facilitador de aprendizagem'.",
+        placeholder: "Analise o risco do uso pelo simples uso e detalhe como a falta de objetivos pedagógicos claros prejudica a aprendizagem conceitual em Física..."
+      },
+      {
+        id: "q2_3",
+        numero: "3",
+        enunciado: "Uma das distinções centrais apontadas na matéria da Nova Escola é o contraste entre 'tecnologia para ensinar' (foco na exposição docente) e 'tecnologia para aprender e criar' (foco no protagonismo discente). Compare detalhadamente essas duas abordagens e explique por que promover a autoria e a investigação ativa pelos estudantes resulta em uma formação científica mais sólida em Física.",
+        orientacao: "Confronte a postura do aluno como receptor passivo de demonstrações na tela com a postura do aluno como agente que formula hipóteses, analisa dados e constrói representações do fenômeno físico.",
+        placeholder: "Compare as tecnologias de ensino com as tecnologias de aprendizagem/criação, argumentando sobre as vantagens cognitivas do protagonismo estudantil..."
+      },
+      {
+        id: "q2_4",
+        numero: "4",
+        enunciado: "Com base nas recomendações práticas da reportagem para superar o modelo meramente expositivo, elabore uma proposta de atividade didática para um conteúdo específico de Física (ex: Leis do Movimento, Calorimetria, Circuitos Elétricos ou Óptica Geométrica) na qual os alunos utilizem tecnologias digitais como ferramentas de criação, modelagem ou investigação autônoma.",
+        orientacao: "Indique o conteúdo de Física, o recurso tecnológico pretendido (ex: simulações interativas PhET, gravação e análise de movimento com Tracker, sensores do celular com Phyphox ou planilhas) e como os alunos atuarão na prática.",
+        placeholder: "Descreva o conteúdo de Física, a ferramenta tecnológica selecionada e as etapas em que os alunos investigam, manipulam parâmetros e produzem conclusões..."
+      },
+      {
+        id: "q2_5",
+        numero: "5",
+        enunciado: "Conforme enfatizado na matéria da Nova Escola, nenhuma tecnologia é autossuficiente ou substitui a intervenção humana qualificada. Qual é o papel crucial da mediação pedagógica do professor de Física antes, durante e após a utilização de recursos tecnológicos com a turma? Por que a ferramenta tecnológica deve ser compreendida sempre como meio e nunca como o fim da ação educativa?",
+        orientacao: "Discuta a curadoria prévia de ferramentas, a formulação de problemas desafiadores durante a aula e a sistematização conceitual coletiva após a atividade prática.",
+        placeholder: "Detalhe as atribuições da mediação pedagógica docente e justifique por que a tecnologia é ferramenta intermediária para o desenvolvimento do pensamento físico..."
+      },
+      {
+        id: "q2_6",
+        numero: "6",
+        enunciado: "Considerando os obstáculos materiais e a infraestrutura desigual nas escolas públicas brasileiras retratados na matéria, que estratégias didáticas resilientes e acessíveis você, como futuro(a) professor(a) de Física, pode adotar para garantir práticas ricas com tecnologia (ex: uso de recursos offline, aproveitamento pedagógico dos smartphones dos próprios estudantes ou experimentos colaborativos em grupo)?",
+        orientacao: "Proponha soluções realistas e resilientes para escolas com limitações materiais, articulando criatividade didática, recursos gratuitos e democratização do acesso aos recursos de aprendizagem.",
+        placeholder: "Apresente estratégias práticas e alternativas viáveis para aplicar tecnologias no ensino de Física mesmo em escolas com infraestrutura deficitária..."
+      }
+    ]
+  },
+  {
+    id: 3, numero: 3,
+    tituloCurto: "3. IA no Ensino de Física",
+    titulo: "Inteligência Artificial Generativa e Avaliação Autêntica em Física",
+    categoria: "Tecnologias Emergentes & Ética Educacional",
+    tempoEstimado: "20-25 min",
+    contexto: 'A evolução das ferramentas de <strong>IA Generativa</strong> (ChatGPT, Gemini, Claude) e motores de cálculo simbólico (Wolfram Alpha) tornou obsoletas avaliações baseadas exclusivamente na resolução mecânica de fórmulas.<br><br>Ao mesmo tempo, as IAs frequentemente apresentam <em>alucinações conceituais</em> em Física, gerando explicações matematicamente convincentes, porém fisicamente absurdas. Isso impõe ao professor repensar suas avaliações, valorizando raciocínio crítico, modelagem conceitual e letramento científico digital.',
+    questoes: [
+      { id: "q3_1", numero: "1", enunciado: "Como o professor de Física pode utilizar a IA Generativa a seu favor no planejamento didático?", orientacao: "Cite aplicações práticas da IA para o docente, ressaltando curadoria e mediação humana.", placeholder: "Geração de analogias, estudos de caso para debate, adaptação de níveis conceituais..." },
+      { id: "q3_2", numero: "2", enunciado: "Que tipo de atividade avaliativa o professor deve priorizar para avaliar autêntica compreensão em vez da cópia passiva de respostas de IA?", orientacao: "Sugira seminários, defesa oral de experimentos, análise crítica de respostas de IA, portfólios.", placeholder: "Novos formatos: análise de erros de IA, arguições conceituais, projetos práticos..." },
+      { id: "q3_3", numero: "3", enunciado: "Como ensinar alunos a identificar criticamente 'alucinações' conceituais de IAs ao resolverem problemas físicos?", orientacao: "Verificação empírica, coerência dimensional, leis de conservação e postura investigativa.", placeholder: "Atividade em que alunos auditam respostas de IA, checando unidades e lógica física..." }
+    ]
+  }
+];
+
+/* ============================================================
+   STORAGE MANAGER
+   ============================================================ */
+const SKEYS = { STUDENT: "iaef_aluno", RESPONSES: "iaef_respostas", META: "iaef_meta" };
+
+const storage = {
+  _saveTimeout: null,
+  _listeners: [],
+  onSave(cb) { this._listeners.push(cb); },
+  _notify(ev, d) { this._listeners.forEach(cb => { try { cb(ev, d); } catch(e) {} }); },
+  getStudent() { try { const d = localStorage.getItem(SKEYS.STUDENT); return d ? JSON.parse(d) : null; } catch(e) { return null; } },
+  saveStudent(s) {
+    const st = { nome: (s.nome||"").trim(), email: (s.email||"").trim().toLowerCase(), senha: (s.senha||"").trim(), curso: (s.curso||"Licenciatura em Física").trim(), matricula: (s.matricula||"").trim(), dataInicio: s.dataInicio || new Date().toISOString() };
+    localStorage.setItem(SKEYS.STUDENT, JSON.stringify(st));
+    this._notify("student_updated", st);
+    return st;
+  },
+  logout() { localStorage.removeItem(SKEYS.STUDENT); this._notify("logout", null); },
+  getAllResponses() { try { const d = localStorage.getItem(SKEYS.RESPONSES); return d ? JSON.parse(d) : {}; } catch(e) { return {}; } },
+  saveResponse(qid, text, immediate) {
+    const doSave = () => {
+      const r = this.getAllResponses(); r[qid] = text;
+      const meta = { lastSaved: new Date().toISOString(), timestamp: Date.now() };
+      localStorage.setItem(SKEYS.RESPONSES, JSON.stringify(r));
+      localStorage.setItem(SKEYS.META, JSON.stringify(meta));
+      this._notify("saved", { questionId: qid, text, meta });
+    };
+    if (this._saveTimeout) clearTimeout(this._saveTimeout);
+    if (immediate) { doSave(); } else { this._saveTimeout = setTimeout(doSave, 350); }
+  },
+  getLastSaved() { try { const d = localStorage.getItem(SKEYS.META); return d ? JSON.parse(d) : null; } catch(e) { return null; } },
+  calculateProgress(ativs) {
+    const r = this.getAllResponses(); let total = 0, answered = 0; const status = {};
+    ativs.forEach(a => { let t = a.questoes.length, ans = 0;
+      a.questoes.forEach(q => { total++; if ((r[q.id]||"").trim().length >= 15) { answered++; ans++; } });
+      status[a.id] = { total: t, answered: ans, isComplete: ans === t, isStarted: ans > 0, percent: Math.round(ans/t*100) };
+    });
+    return { totalQuestions: total, answeredQuestions: answered, overallPercent: total > 0 ? Math.round(answered/total*100) : 0, activityStatus: status };
+  },
+  exportData() { return { version:"1.0", app:"IAEF-IFCE", exportedAt: new Date().toISOString(), student: this.getStudent(), responses: this.getAllResponses() }; },
+  exportCode() { try { return btoa(unescape(encodeURIComponent(JSON.stringify(this.exportData())))); } catch(e) { return JSON.stringify(this.exportData()); } },
+  importData(d) { if(d.student) localStorage.setItem(SKEYS.STUDENT, JSON.stringify(d.student)); if(d.responses) localStorage.setItem(SKEYS.RESPONSES, JSON.stringify(d.responses)); localStorage.setItem(SKEYS.META, JSON.stringify({lastSaved:new Date().toISOString()})); this._notify("imported", d); },
+  importCode(c) { let j; try { j = decodeURIComponent(escape(atob(c.trim()))); } catch(e) { j = c.trim(); } this.importData(JSON.parse(j)); }
+};
+
+/* ============================================================
+   APP CONTROLLER
+   ============================================================ */
+(function() {
+  let currentIdx = 0;
+  let student = null;
+
+  const $ = id => document.getElementById(id);
+  const $$ = sel => document.querySelectorAll(sel);
+
+  function init() {
+    buildStepper();
+    bindEvents();
+    student = storage.getStudent();
+    if (student && student.nome) { setupHeader(student); showView('assessment'); renderActivity(); updateProgress(); }
+    else { showView('auth'); }
+  }
+
+  function buildStepper() {
+    const nav = $('stepper-nav');
+    nav.innerHTML = '';
+    ATIVIDADES.forEach((a, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'step-btn' + (i === 0 ? ' active' : '');
+      btn.dataset.step = String(i);
+      const label = a.tituloCurto || ("Atividade " + (i+1));
+      btn.innerHTML = '<span class="step-number-circle">'+(i+1)+'</span><div class="step-text-wrap"><span class="step-label">'+label+'</span><span class="step-status">Pendente</span></div>';
+      btn.addEventListener('click', () => goTo(i));
+      nav.appendChild(btn);
+    });
+  }
+
+  function bindEvents() {
+    $('auth-form').addEventListener('submit', handleAuth);
+    $('btn-logout').addEventListener('click', handleLogout);
+    $('btn-prev-activity').addEventListener('click', () => goTo(currentIdx - 1));
+    $('btn-next-activity').addEventListener('click', handleNext);
+    $('btn-quick-prev').addEventListener('click', () => goTo(currentIdx - 1));
+    $('btn-quick-next').addEventListener('click', handleNext);
+    $('btn-force-save').addEventListener('click', forceSave);
+    $('btn-preview-report').addEventListener('click', () => { showView('relatorio'); renderReport(); });
+    $('btn-voltar-questoes').addEventListener('click', () => showView('assessment'));
+    $('btn-baixar-pdf').addEventListener('click', () => { toast("Preparando PDF...", "info"); setTimeout(() => window.print(), 200); });
+    $('btn-enviar-email').addEventListener('click', () => { $('input-email-dest').value = AVALIACAO_METADATA.emailProfessorPadrao; $('email-modal').classList.add('active'); });
+    $('btn-close-email').addEventListener('click', () => $('email-modal').classList.remove('active'));
+    $('email-modal').addEventListener('click', e => { if(e.target===$('email-modal')) $('email-modal').classList.remove('active'); });
+    $('btn-trigger-mailto').addEventListener('click', doMailto);
+    $('btn-copiar-resumo').addEventListener('click', copyReport);
+    $('btn-open-backup').addEventListener('click', openBackup);
+    $('btn-close-backup').addEventListener('click', () => $('backup-modal').classList.remove('active'));
+    $('backup-modal').addEventListener('click', e => { if(e.target===$('backup-modal')) $('backup-modal').classList.remove('active'); });
+    $('btn-download-json').addEventListener('click', downloadBackup);
+    $('btn-copy-code').addEventListener('click', () => { navigator.clipboard.writeText($('export-code-box').value).then(()=>toast("Código copiado!","success")); });
+    $('import-file-input').addEventListener('change', handleFileImport);
+    $('btn-apply-import').addEventListener('click', handleCodeImport);
+    $$('.modal-tab-btn').forEach(tb => { tb.addEventListener('click', () => {
+      $$('.modal-tab-btn').forEach(b=>b.classList.remove('active')); $$('.modal-tab-panel').forEach(p=>p.classList.remove('active'));
+      tb.classList.add('active'); const t = $(tb.dataset.tab); if(t) t.classList.add('active');
+    }); });
+    storage.onSave((ev, d) => { if(ev==='saved') { showSaved(d.meta.lastSaved); updateProgress(); } });
+  }
+
+  function showView(v) {
+    $('auth-view').style.display = v==='auth' ? 'block' : 'none';
+    $('assessment-view').style.display = v==='assessment' ? 'block' : 'none';
+    $('relatorio-view').style.display = v==='relatorio' ? 'block' : 'none';
+    $('header-student-chip').style.display = v==='auth' ? 'none' : 'flex';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function handleAuth(e) {
+    e.preventDefault();
+    const nome = $('auth-nome').value.trim(), email = $('auth-email').value.trim(), senha = $('auth-senha').value.trim(), curso = $('auth-curso').value.trim(), mat = $('auth-matricula').value.trim();
+    if (!nome || !email || !senha || !curso) { toast("Preencha todos os campos obrigatórios.", "warning"); return; }
+    student = storage.saveStudent({ nome, email, senha, curso, matricula: mat });
+    setupHeader(student);
+    toast("Bem-vindo(a), " + nome + "!", "success");
+    showView('assessment'); renderActivity(); updateProgress();
+  }
+
+  function setupHeader(s) {
+    $('header-student-chip').style.display = 'flex';
+    $('student-name-header').textContent = s.nome;
+    $('student-course-header').textContent = s.curso || 'Lic. Física';
+    const ns = s.nome.split(' ').filter(Boolean);
+    $('student-avatar').textContent = ns.length > 1 ? (ns[0][0]+ns[ns.length-1][0]).toUpperCase() : (ns[0]?ns[0].substring(0,2).toUpperCase():'AL');
+  }
+
+  function handleLogout() {
+    if (confirm("Deseja sair? Suas respostas permanecerão salvas neste navegador.")) {
+      storage.logout(); student = null; showView('auth'); toast("Sessão encerrada.", "info");
+    }
+  }
+
+  function goTo(idx) { if (idx >= 0 && idx < ATIVIDADES.length) { currentIdx = idx; renderActivity(); window.scrollTo({top:0,behavior:'smooth'}); } }
+
+  function handleNext() { if (currentIdx < ATIVIDADES.length - 1) goTo(currentIdx + 1); else { showView('relatorio'); renderReport(); } }
+
+  function renderActivity() {
+    const a = ATIVIDADES[currentIdx]; if (!a) return;
+    $('activity-domain-tag').textContent = a.categoria;
+    $('activity-time-tag').innerHTML = '<i class="bi bi-clock"></i> ' + a.tempoEstimado;
+    $('activity-title-text').textContent = 'Atividade ' + a.numero + ': ' + a.titulo;
+    $('activity-context-text').innerHTML = a.contexto;
+    const qc = $('questions-container'); qc.innerHTML = '';
+    const responses = storage.getAllResponses();
+
+    function renderQuestionBlock(q, targetContainer) {
+      const ans = responses[q.id] || '';
+      const filled = ans.trim().length >= 15;
+      const wc = ans.trim() ? ans.trim().split(/\s+/).length : 0;
+      const block = document.createElement('div'); block.className = 'question-block';
+      block.innerHTML =
+        '<div class="question-header"><div class="question-title-wrap"><span class="question-num-tag">'+q.numero+'</span><div class="question-text">'+q.enunciado.replace(/\n/g, '<br>')+'</div></div>'+
+        '<span class="question-status-pill '+(filled?'status-filled':'status-empty')+'" id="sp-'+q.id+'"><i class="bi '+(filled?'bi-check-circle-fill':'bi-dash-circle')+'"></i> '+(filled?'Respondida':'Pendente')+'</span></div>'+
+        (q.orientacao ? '<div class="hint-toggle-wrap"><div class="hint-box"><i class="bi bi-lightbulb"></i><div><strong>Diretriz:</strong> '+q.orientacao+'</div></div></div>' : '')+
+        '<div class="answer-textarea-wrap"><textarea class="answer-textarea" id="ta-'+q.id+'" data-qid="'+q.id+'" placeholder="'+(q.placeholder||'Digite sua resposta...')+'">'+ans+'</textarea>'+
+        '<div class="answer-footer"><span class="char-counter" id="cc-'+q.id+'">'+wc+' palavras • '+ans.length+' caracteres</span><span class="autosave-inline-hint"><i class="bi bi-cloud-check"></i> Salvamento contínuo</span></div></div>';
+      targetContainer.appendChild(block);
+      block.querySelector('#ta-'+q.id).addEventListener('input', function(e) {
+        const t = e.target.value;
+        $('autosave-badge').className = 'autosave-badge saving'; $('autosave-text').textContent = 'Gravando...';
+        storage.saveResponse(q.id, t, false);
+        const w = t.trim() ? t.trim().split(/\s+/).length : 0;
+        const cc = $('cc-'+q.id); if(cc) cc.textContent = w + ' palavras • ' + t.length + ' caracteres';
+        const sp = $('sp-'+q.id); const f = t.trim().length >= 15;
+        if(sp) { sp.className = 'question-status-pill '+(f?'status-filled':'status-empty'); sp.innerHTML = '<i class="bi '+(f?'bi-check-circle-fill':'bi-dash-circle')+'"></i> '+(f?'Respondida':'Pendente'); }
+      });
+    }
+
+    if (a.eixos && a.eixos.length > 0) {
+      a.eixos.forEach(eixo => {
+        const wrap = document.createElement('div');
+        wrap.className = 'eixo-section-wrapper';
+        wrap.innerHTML =
+          '<div class="eixo-header-card">' +
+            '<i class="bi ' + (eixo.icone || 'bi-layers') + '"></i>' +
+            '<div>' +
+              '<div>' + eixo.titulo + '</div>' +
+              (eixo.subtitulo ? '<div style="font-size:0.82rem;font-weight:500;opacity:0.9;margin-top:2px;">' + eixo.subtitulo + '</div>' : '') +
+            '</div>' +
+          '</div>' +
+          '<div class="eixo-body-card">' + eixo.conteudo + '</div>' +
+          '<div class="eixo-questions-container" id="eqc-' + eixo.id + '"></div>';
+        qc.appendChild(wrap);
+        const eqc = wrap.querySelector('#eqc-' + eixo.id);
+        eixo.questoes.forEach(q => renderQuestionBlock(q, eqc));
+      });
+    } else {
+      a.questoes.forEach(q => renderQuestionBlock(q, qc));
+    }
+
+    // Nav buttons
+    $('btn-prev-activity').disabled = currentIdx === 0; $('btn-prev-activity').style.opacity = currentIdx === 0 ? '0.5' : '1';
+    $('btn-quick-prev').disabled = currentIdx === 0;
+    if (currentIdx === ATIVIDADES.length - 1) { $('btn-next-activity').innerHTML = '<span>Visualizar Relatório</span> <i class="bi bi-file-earmark-check-fill"></i>'; $('btn-next-activity').className = 'btn btn-success btn-lg'; }
+    else { $('btn-next-activity').innerHTML = 'Próxima Atividade <i class="bi bi-arrow-right"></i>'; $('btn-next-activity').className = 'btn btn-primary btn-lg'; }
+    // Stepper active
+    $$('.step-btn').forEach((b,i) => { b.classList.toggle('active', i === currentIdx); });
+  }
+
+  function showSaved(ts) { $('autosave-badge').className = 'autosave-badge saved'; const d = ts ? new Date(ts) : new Date(); $('autosave-text').textContent = 'Salvo às ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
+
+  function forceSave() { $$('.answer-textarea').forEach(t => storage.saveResponse(t.dataset.qid, t.value, true)); toast("Progresso salvo!", "success"); }
+
+  function updateProgress() {
+    const p = storage.calculateProgress(ATIVIDADES);
+    $('progress-bar-fill').style.width = p.overallPercent + '%';
+    $('tracker-stats-text').textContent = p.answeredQuestions + ' de ' + p.totalQuestions + ' respostas preenchidas (' + p.overallPercent + '%)';
+    $$('.step-btn').forEach((btn,i) => {
+      const a = ATIVIDADES[i]; const st = p.activityStatus[a.id]; const label = btn.querySelector('.step-status');
+      if (st && st.isComplete) { btn.classList.add('complete'); if(label) label.textContent = 'Concluída'; }
+      else if (st && st.isStarted) { btn.classList.remove('complete'); if(label) label.textContent = st.answered+'/'+st.total; }
+      else { btn.classList.remove('complete'); if(label) label.textContent = 'Pendente'; }
+    });
+  }
+
+  function renderReport() {
+    const s = student || storage.getStudent() || {};
+    const r = storage.getAllResponses();
+    const p = storage.calculateProgress(ATIVIDADES);
+    $('rep-aluno-nome').textContent = s.nome || '-';
+    $('rep-aluno-email').textContent = s.email || '-';
+    $('rep-aluno-curso').textContent = s.curso || 'Lic. Física';
+    $('rep-aluno-matricula').textContent = s.matricula || 'N/A';
+    $('sig-student-name').textContent = s.nome || 'Assinatura do Aluno';
+    $('rep-data-conclusao').textContent = new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    $('rep-status-progresso').textContent = p.answeredQuestions+' de '+p.totalQuestions+' ('+p.overallPercent+'%)';
+    const corpo = $('relatorio-atividades-corpo'); corpo.innerHTML = '';
+    ATIVIDADES.forEach(a => {
+      let qh = '';
+      a.questoes.forEach(q => { const ans = (r[q.id]||'').trim(); qh += '<div class="report-question-box"><div class="report-question-text">Questão '+q.numero+': '+q.enunciado+'</div><div class="report-answer-box'+(ans?'':' report-answer-empty')+'">'+(ans||'[Não respondida]')+'</div></div>'; });
+      const sec = document.createElement('section'); sec.className = 'report-activity-group';
+      sec.innerHTML = '<div class="report-activity-title"><h3>Atividade '+a.numero+': '+a.titulo+'</h3><div style="font-size:0.8rem;font-style:italic;color:var(--text-muted);">'+a.categoria+'</div></div>' + qh;
+      corpo.appendChild(sec);
+    });
+  }
+
+  function doMailto() {
+    const s = student || storage.getStudent() || {};
+    const dest = $('input-email-dest').value.trim() || AVALIACAO_METADATA.emailProfessorPadrao;
+    const p = storage.calculateProgress(ATIVIDADES);
+    const subj = encodeURIComponent('[IFCE: Informática no Ensino da Física] Avaliação 2026.2 ('+(s.nome||'Aluno')+')');
+    const body = encodeURIComponent('Prezado(a) Professor(a),\n\nSegue a avaliação de Informática Aplicada ao Ensino da Física.\n\nAluno: '+(s.nome||'')+'\nE-mail: '+(s.email||'')+'\nCurso: '+(s.curso||'')+'\nMatrícula: '+(s.matricula||'N/A')+'\nQuestões: '+p.answeredQuestions+'/'+p.totalQuestions+' ('+p.overallPercent+'%)\n\n* ANEXE O PDF DO RELATÓRIO A ESTE E-MAIL.\n\nAtenciosamente,\n'+(s.nome||''));
+    $('email-modal').classList.remove('active');
+    toast("Abrindo seu e-mail...", "success");
+    window.location.href = 'mailto:'+dest+'?subject='+subj+'&body='+body;
+  }
+
+  function copyReport() {
+    const s = student || storage.getStudent() || {};
+    const r = storage.getAllResponses();
+    const p = storage.calculateProgress(ATIVIDADES);
+    let txt = '=== IFCE (LICENCIATURA EM FÍSICA) ===\nINFORMÁTICA APLICADA AO ENSINO DA FÍSICA\nRELATÓRIO DE AVALIAÇÃO (2026.2)\n\nAluno: '+(s.nome||'')+'\nE-mail: '+(s.email||'')+'\nCurso: '+(s.curso||'')+'\nMatrícula: '+(s.matricula||'N/A')+'\nData: '+new Date().toLocaleString('pt-BR')+'\nStatus: '+p.answeredQuestions+'/'+p.totalQuestions+' ('+p.overallPercent+'%)\n\n';
+    ATIVIDADES.forEach(a => { txt += '--- ATIVIDADE '+a.numero+': '+a.titulo+' ---\n'; a.questoes.forEach(q => { txt += '\n[Q'+q.numero+'] '+q.enunciado+'\nR: '+((r[q.id]||'').trim()||'[Não respondida]')+'\n'; }); txt += '\n'; });
+    navigator.clipboard.writeText(txt).then(()=>toast("Relatório copiado!","success")).catch(()=>toast("Falha ao copiar.","warning"));
+  }
+
+  function openBackup() { $('export-code-box').value = storage.exportCode(); $('backup-modal').classList.add('active'); }
+  function downloadBackup() {
+    const d = storage.exportData(); const nm = (d.student&&d.student.nome?d.student.nome:'aluno').toLowerCase().replace(/[^a-z0-9]/g,'_');
+    const blob = new Blob([JSON.stringify(d,null,2)],{type:'application/json'}); const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='backup_'+nm+'_'+Date.now()+'.json'; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    toast("Backup baixado!","success");
+  }
+  function handleFileImport(e) {
+    const f = e.target.files[0]; if(!f) return;
+    const reader = new FileReader();
+    reader.onload = ev => { try { storage.importData(JSON.parse(ev.target.result)); afterImport(); } catch(err) { alert("Arquivo inválido: "+err.message); } };
+    reader.readAsText(f);
+  }
+  function handleCodeImport() { const c = $('import-code-box').value.trim(); if(!c){toast("Cole o código.","warning");return;} try{storage.importCode(c);afterImport();}catch(err){alert("Código inválido: "+err.message);} }
+  function afterImport() { student = storage.getStudent(); setupHeader(student); $('backup-modal').classList.remove('active'); showView('assessment'); renderActivity(); updateProgress(); toast("Dados restaurados!","success"); }
+
+  function toast(msg, type) {
+    type = type || 'info';
+    const icons = { success:'bi-check-circle-fill', info:'bi-info-circle-fill', warning:'bi-exclamation-triangle-fill' };
+    const t = document.createElement('div'); t.className = 'toast toast-'+type;
+    t.innerHTML = '<i class="bi '+(icons[type]||icons.info)+'" style="font-size:1.15rem;"></i><div style="flex:1;">'+msg+'</div>';
+    $('toast-container').appendChild(t);
+    setTimeout(() => { t.style.opacity='0'; t.style.transform='translateX(100%)'; setTimeout(()=>t.remove(),300); }, 4000);
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</body>
+</html>
