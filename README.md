@@ -32,15 +32,13 @@ Pronta para publicação instantânea na **Vercel** e versionamento no **GitHub*
 
 ## 📚 Estrutura das Atividades Pedagógicas
 
-1. **Atividade 1: Estudo de Caso – Prática Docente, Infraestrutura e Resiliência**
+1. **Atividade 1: Estudo de Caso: Prática Docente, Infraestrutura e Resiliência**
    - *Cenário da Professora Celinha:* Análise de imprevistos com computador/projetor, elaboração de planos B, postura colaborativa do suporte técnico e a proposta de produção de conteúdo pelos alunos (vídeos e fotos de fenômenos cotidianos).
    - 4 questões reflexivas aplicadas.
 
-2. **Atividade 2: Tecnologias Educacionais na Prática: Intencionalidade, Criação e Realidade Escolar**
-   - *Análise Exclusiva da Reportagem da Revista Nova Escola (conteúdo 21894):* A atividade é estruturada em 3 eixos temáticos extraídos da matéria *"Tecnologias educacionais: o que são e como usá-las na prática?"*, cada um acompanhado imediatamente de suas 2 questões:
-     - **Eixo 1 (Conceituação & Tecnocentrismo):** O que são tecnologias educacionais; crítica ao fetiche da novidade e ao risco do "uso pelo uso"; a centralidade da intencionalidade pedagógica docente (*Questões 1 e 2*).
-     - **Eixo 2 (Tecnologias de Ensino vs. Aprendizagem/Criação):** O contraste entre o uso meramente expositivo pelo professor e o uso investigativo pelos estudantes em Física (sensores, simuladores e autoria) (*Questões 3 e 4*).
-     - **Eixo 3 (Mediação Pedagógica & Desafios da Escola Real):** O papel humano insubstituível do professor, superação de barreiras de conectividade e estratégias resilientes e inclusivas na escola pública (*Questões 5 e 6*).
+2. **Atividade 2: Tecnologias Educacionais na Prática: Intencionalidade e Realidade Escolar**
+   - *Análise da Reportagem da Revista Nova Escola (conteúdo 21894):* Contextualização sobre o conceito ampliado de tecnologias educacionais, intencionalidade pedagógica, BNCC e plataformas offline. Inclui link de acesso oficial à matéria.
+   - 1 questão reflexiva sobre estratégias didáticas resilientes e acessíveis para lidar com obstáculos materiais e desigualdade de infraestrutura nas escolas públicas brasileiras.
 
 3. **Atividade 3: Inteligência Artificial Generativa e Avaliação Autêntica em Física**
    - *Tecnologias Emergentes & Ética:* Como utilizar IA generativa no planejamento didático, avaliação autêntica e desenvolvimento de postura investigativa diante de alucinações conceituais.
